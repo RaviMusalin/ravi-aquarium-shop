@@ -12,3 +12,10 @@ export type Product = {
   tankGallons: number | null;
   temperament: string | null;
 };
+
+export type ProductFilters = {
+  category?: string;
+  waterType?: string;
+  q?: string;
+  inStock?: boolean;
+};

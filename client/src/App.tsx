@@ -1,37 +1,29 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "./api";
-import type { Product } from "./types";
-
-function formatPrice(cents: number): string {
-  return `$${(cents / 100).toFixed(2)}`;
-}
+import { useState } from "react";
+import FilterBar from "./components/FilterBar";
+import ProductCard from "./components/ProductCard";
+import { useProducts } from "./hooks/useProducts";
+import type { ProductFilters } from "./types";
 
 export default function App() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    getProducts()
-      .then(setProducts)
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <p>Loading…</p>;
-  if (error) return <p>Something went wrong: {error}</p>;
+  const [filters, setFilters] = useState<ProductFilters>({});
+  const { products, loading, error } = useProducts(filters);
 
   return (
     <main>
       <h1>Ravi's Aquarium Shop</h1>
-      <ul>
+      <FilterBar filters={filters} onChange={setFilters} />
+
+      {loading && <p>Loading…</p>}
+      {error && <p className="error">Something went wrong: {error}</p>}
+      {!loading && !error && products.length === 0 && (
+        <p>No products match your filters.</p>
+      )}
+
+      <div className="product-grid">
         {products.map((p) => (
-          <li key={p.id}>
-            <strong>{p.name}</strong> — {formatPrice(p.priceCents)} ({p.category},{" "}
-            {p.waterType}) — {p.stock} in stock
-          </li>
+          <ProductCard key={p.id} product={p} />
         ))}
-      </ul>
+      </div>
     </main>
   );
 }
