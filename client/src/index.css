@@ -47,3 +47,8 @@ body {
 .error {
   color: #b00020;
 }
+
+.low-stock {
+  color: #b45309;
+  font-weight: bold;
+}

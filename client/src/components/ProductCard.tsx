@@ -8,6 +8,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <article className="product-card">
       <h3>{product.name}</h3>
+    {product.stock > 0 && product.stock < 5 && (<span className="low-stock">Low stock</span>)}
       <p className="meta">
         {product.category} · {product.waterType}
       </p>
