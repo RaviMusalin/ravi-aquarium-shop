@@ -25,3 +25,15 @@ export type CartItem = {
   product: Product;
   quantity: number;
 };
+
+
+export type CompatibilityWarning = {
+  type: "water_type" | "tank_size" | "temperament";
+  message: string;
+  productIds: number[];
+};
+
+export type CompatibilityResult = {
+  compatible: boolean;
+  warnings: CompatibilityWarning[];
+};

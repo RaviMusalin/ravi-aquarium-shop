@@ -1,4 +1,4 @@
-import type { Product, ProductFilters } from "./types";
+import type { CompatibilityResult, Product, ProductFilters } from "./types";
 
 // Mirrors the error shape our server sends back
 export class ApiError extends Error {
@@ -43,4 +43,15 @@ export async function getProducts(
     `/api/products${query ? `?${query}` : ""}`
   );
   return data.products;
+}
+
+
+export async function checkCompatibility(
+  productIds: number[]
+): Promise<CompatibilityResult> {
+  return request<CompatibilityResult>("/api/compatibility", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ productIds }),
+  });
 }

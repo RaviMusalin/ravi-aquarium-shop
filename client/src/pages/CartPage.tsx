@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
+import CompatibilityBanner from "../components/CompatibilityBanner";
 import { useCart } from "../context/CartContext";
 import { formatPrice } from "../format";
+import { useCompatibility } from "../hooks/useCompatibility";
 
 export default function CartPage() {
   const { items, totalCents, setQuantity, removeItem, clearCart } = useCart();
+
+  // Hooks must run on every render, so this goes BEFORE the early return below
+  const { result, error: compatError } = useCompatibility(
+    items.map((i) => i.product.id)
+  );
 
   if (items.length === 0) {
     return (
@@ -43,6 +50,12 @@ export default function CartPage() {
           </li>
         ))}
       </ul>
+
+      {result && <CompatibilityBanner warnings={result.warnings} />}
+      {compatError && (
+        <p className="meta">Couldn't check compatibility right now.</p>
+      )}
+
       <p className="cart-total">
         <strong>Total: {formatPrice(totalCents)}</strong>
       </p>
