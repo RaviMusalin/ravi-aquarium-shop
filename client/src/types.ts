@@ -19,3 +19,9 @@ export type ProductFilters = {
   q?: string;
   inStock?: boolean;
 };
+
+
+export type CartItem = {
+  product: Product;
+  quantity: number;
+};
