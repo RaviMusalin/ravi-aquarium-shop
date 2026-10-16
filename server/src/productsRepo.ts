@@ -92,3 +92,14 @@ export function getProductById(id: number): Product | undefined {
     | undefined;
   return row ? toProduct(row) : undefined;
 }
+
+
+export function getProductsByIds(ids: number[]): Product[] {
+  if (ids.length === 0) return [];
+  // One "?" per id; the values themselves still go in as parameters
+  const placeholders = ids.map(() => "?").join(",");
+  const rows = db
+    .prepare(`SELECT * FROM products WHERE id IN (${placeholders})`)
+    .all(...ids) as ProductRow[];
+  return rows.map(toProduct);
+}

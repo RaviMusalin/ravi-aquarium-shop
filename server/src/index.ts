@@ -1,6 +1,7 @@
 import express from "express";
 import { errorHandler } from "./errors";
 import { productsRouter } from "./routes/products";
+import { compatibilityRouter } from "./routes/compatibility";
 
 const app = express();
 const PORT = 3001;
@@ -12,6 +13,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/products", productsRouter);
+app.use("/api/compatibility", compatibilityRouter);
 
 // Anything that didn't match a route above
 app.use((_req, res) => {
