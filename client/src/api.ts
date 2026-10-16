@@ -1,5 +1,10 @@
-import type { CompatibilityResult, Product, ProductFilters } from "./types";
-
+import type {
+  CompatibilityResult,
+  NewOrder,
+  Order,
+  Product,
+  ProductFilters,
+} from "./types";
 // Mirrors the error shape our server sends back
 export class ApiError extends Error {
   status: number;
@@ -54,4 +59,19 @@ export async function checkCompatibility(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ productIds }),
   });
+}
+
+
+export async function placeOrder(order: NewOrder): Promise<Order> {
+  const data = await request<{ order: Order }>("/api/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(order),
+  });
+  return data.order;
+}
+
+export async function getOrder(id: number): Promise<Order> {
+  const data = await request<{ order: Order }>(`/api/orders/${id}`);
+  return data.order;
 }

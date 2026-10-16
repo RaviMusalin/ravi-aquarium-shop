@@ -3,6 +3,7 @@ import CompatibilityBanner from "../components/CompatibilityBanner";
 import { useCart } from "../context/CartContext";
 import { formatPrice } from "../format";
 import { useCompatibility } from "../hooks/useCompatibility";
+import CheckoutForm from "../components/CheckoutForm";
 
 export default function CartPage() {
   const { items, totalCents, setQuantity, removeItem, clearCart } = useCart();
@@ -60,6 +61,7 @@ export default function CartPage() {
         <strong>Total: {formatPrice(totalCents)}</strong>
       </p>
       <button onClick={clearCart}>Empty cart</button>
+      <CheckoutForm />
     </>
   );
 }

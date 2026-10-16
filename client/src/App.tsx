@@ -3,6 +3,7 @@ import { useCart } from "./context/CartContext";
 import CartPage from "./pages/CartPage";
 import CatalogPage from "./pages/CatalogPage";
 import { formatPrice } from "./format";
+import OrderPage from "./pages/OrderPage";
 
 export default function App() {
   const { itemCount, totalCents } = useCart();
@@ -19,6 +20,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<CatalogPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders/:id" element={<OrderPage />} />
         </Routes>
       </main>
     </>

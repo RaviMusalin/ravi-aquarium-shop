@@ -37,3 +37,26 @@ export type CompatibilityResult = {
   compatible: boolean;
   warnings: CompatibilityWarning[];
 };
+
+
+export type OrderItem = {
+  productId: number;
+  name: string;
+  quantity: number;
+  unitPriceCents: number;
+};
+
+export type Order = {
+  id: number;
+  customerName: string;
+  customerEmail: string;
+  totalCents: number;
+  createdAt: string;
+  items: OrderItem[];
+};
+
+export type NewOrder = {
+  customerName: string;
+  customerEmail: string;
+  items: { productId: number; quantity: number }[];
+};
