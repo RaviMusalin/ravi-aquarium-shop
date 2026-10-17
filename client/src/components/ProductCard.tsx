@@ -1,5 +1,5 @@
 import { useCart } from "../context/CartContext";
-import { formatPrice } from "../format";
+import { categoryEmoji, formatPrice } from "../format";
 import type { Product } from "../types";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -12,9 +12,13 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="product-card">
+      <div className="product-thumb" aria-hidden="true">
+        {categoryEmoji(product.category)}
+      </div>
       <h3>{product.name}</h3>
       <p className="meta">
-        {product.category} · {product.waterType}
+        <span className="badge">{product.category}</span>{" "}
+        <span className="badge badge-water">{product.waterType}</span>
       </p>
       <p>{product.description}</p>
       <p className="price">{formatPrice(product.priceCents)}</p>
@@ -24,7 +28,11 @@ export default function ProductCard({ product }: { product: Product }) {
           <span className="low-stock">Low stock</span>
         )}
       </p>
-      <button onClick={() => addItem(product)} disabled={soldOut || atLimit}>
+      <button
+        className="btn-primary"
+        onClick={() => addItem(product)}
+        disabled={soldOut || atLimit}
+      >
         {soldOut ? "Sold out" : atLimit ? "Max in cart" : "Add to cart"}
       </button>
       {inCart > 0 && <p className="meta">{inCart} in your cart</p>}

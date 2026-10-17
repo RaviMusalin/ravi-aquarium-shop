@@ -54,7 +54,7 @@ export default function CheckoutForm() {
           {error}
         </p>
       )}
-      <button type="submit" disabled={submitting}>
+      <button type="submit" className="btn-primary" disabled={submitting}>
         {submitting ? "Placing order…" : "Place order"}
       </button>
     </form>

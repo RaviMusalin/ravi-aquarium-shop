@@ -1,10 +1,92 @@
-body {
-  font-family: system-ui, sans-serif;
-  margin: 0;
-  padding: 1rem 2rem;
+/* Theme colors live here. Change one line and the whole site updates. */
+:root {
+  --navy: #0b2545;
+  --aqua: #e76f51;
+  --aqua-dark: #0e8791;
+  --aqua-light: #e8f6f8;
+  --page-bg: #f4f8fa;
+  --text: #1c2b36;
+  --muted: #5b6b78;
+  --border: #d7e2e8;
+  --error: #b00020;
 }
 
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--page-bg);
+}
 
+a {
+  color: var(--aqua-dark);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--navy);
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.site-header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Buttons */
+button {
+  font: inherit;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--aqua);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--aqua);
+  border-color: var(--aqua);
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--aqua-dark);
+  border-color: var(--aqua-dark);
+}
+
+/* Keyboard users can see where they are */
+:focus-visible {
+  outline: 2px solid var(--aqua);
+  outline-offset: 2px;
+}
+
+/* Filters */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -16,36 +98,68 @@ body {
 .filter-bar input[type="search"],
 .filter-bar select {
   padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
 }
 
+/* Product grid and cards */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1rem;
 }
 
 .product-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   padding: 1rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(11, 37, 69, 0.1);
 }
 
 .product-card h3 {
   margin: 0 0 0.25rem;
 }
 
+.product-thumb {
+  font-size: 3rem;
+  text-align: center;
+  background: var(--aqua-light);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
 .meta {
-  color: #666;
+  color: var(--muted);
   font-size: 0.85rem;
   margin: 0 0 0.5rem;
 }
 
-.price {
-  font-weight: bold;
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--aqua-light);
+  color: var(--aqua-dark);
+  text-transform: capitalize;
 }
 
-.error {
-  color: #b00020;
+.badge-water {
+  background: #eef0fb;
+  color: #3b4a9e;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .low-stock {
@@ -53,17 +167,11 @@ body {
   font-weight: bold;
 }
 
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+.error {
+  color: var(--error);
 }
 
-.site-header h1 {
-  margin: 0;
-}
-
+/* Cart and orders */
 .cart-list {
   list-style: none;
   padding: 0;
@@ -75,7 +183,15 @@ body {
   gap: 1rem;
   align-items: center;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .qty {
@@ -89,7 +205,7 @@ body {
   font-size: 1.2rem;
 }
 
-
+/* Compatibility banner */
 .compat-banner {
   background: #fff4e5;
   border: 1px solid #f0b86e;
@@ -103,7 +219,7 @@ body {
   margin: 0.5rem 0;
 }
 
-
+/* Checkout form */
 .checkout-form {
   display: flex;
   flex-direction: column;
@@ -120,12 +236,27 @@ body {
 
 .checkout-form input {
   padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
 }
 
-.order-row {
-  display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr;
-  gap: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ddd;
+/* Narrow screens */
+@media (max-width: 640px) {
+  main {
+    padding: 0 1rem 2rem;
+  }
+
+  .site-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .site-header h1 {
+    font-size: 1.1rem;
+  }
+
+  .cart-row,
+  .order-row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
