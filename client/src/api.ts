@@ -33,9 +33,7 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
   return body as T;
 }
 
-export async function getProducts(
-  filters: ProductFilters = {}
-): Promise<Product[]> {
+export async function getProducts(filters: ProductFilters = {}): Promise<Product[]> {
   // Only include a parameter if the user actually set it
   const params = new URLSearchParams();
   if (filters.category) params.set("category", filters.category);
@@ -51,9 +49,7 @@ export async function getProducts(
 }
 
 
-export async function checkCompatibility(
-  productIds: number[]
-): Promise<CompatibilityResult> {
+export async function checkCompatibility(productIds: number[]): Promise<CompatibilityResult> {
   return request<CompatibilityResult>("/api/compatibility", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
